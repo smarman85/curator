@@ -1,0 +1,5 @@
+rails_apps:
+  - name: authtest
+    repo: auth-test
+  - name: auth2
+    repo: auth-2
