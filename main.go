@@ -7,7 +7,7 @@ import (
     "log"
 )
 
-type conf struct {
+type Conf struct {
     Apps []map[string]string `yaml:"rails_apps"`
 }
 
@@ -15,7 +15,7 @@ type app struct {
   App map[string]string
 }
 
-func (c *conf) getConf() *conf {
+func (c *Conf) GetConf() *Conf {
 
     yamlFile, err := ioutil.ReadFile("config.yaml")
     if err != nil {
@@ -30,10 +30,9 @@ func (c *conf) getConf() *conf {
 }
 
 func main() {
-    var c conf
-    c.getConf()
+    var c Conf
+    c.GetConf()
 
-    //f.Println(c)
     for _, app := range c.Apps {
       f.Printf("Name: %s\n", app["name"])
       f.Printf("Repo: %s\n", app["repo"])
