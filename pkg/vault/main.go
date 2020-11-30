@@ -41,11 +41,8 @@ func vaultApi(url, app string) int {
   */
 }
 
-func createVaultEpt(url, app string) []byte {
-  jData, _ := json.Marshal(map[string]map[string]string{
-    "data": {"env":"test"},
-  })
-  request, err := http.NewRequest("POST", url + "v1/secret/data/test/" + app + "/env", bytes.NewBuffer(jData))
+func createVaultEpt(url string, data []byte) []byte {
+  request, err := http.NewRequest("POST", url, bytes.NewBuffer(data))
   check("Listing vault urls", err)
   request.Header.Set("X-Vault-Token", VltPass)
   request.Header.Add("Content-Type", "application/json")
@@ -69,10 +66,19 @@ func endPointExists(app string) bool {
   return exists
 }
 
-func Endpoint(app string) {
+func Endpoint(app, repo string) {
   if !endPointExists(app) {
+    jData, _ := json.Marshal(map[string]map[string]string{
+      "data": {"env":"test"},
+    })
     f.Println("Creating Endpoint for: " + app)
-    resp := createVaultEpt(vltUrl, app)
+    resp := createVaultEpt(vltUrl + "v1/secret/data/test/" + app + "/env", jData)
     f.Println(string(resp))
+    /*
+    bot, _ := json.Marshal(map[string]map[string]string{
+      "data": {app: repo},
+    })
+    createVaultEpt(vltUrl + "v1/secret/data/test/apps", bot)
+    */
   }
 }
