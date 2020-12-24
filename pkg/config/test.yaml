@@ -1,0 +1,3 @@
+rails_apps:
+  - name: sampleapp
+    repo: sample-app

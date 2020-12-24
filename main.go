@@ -6,8 +6,9 @@ import (
     "io/ioutil"
     "log"
 
-    "curator/pkg/vault"
-    "curator/pkg/spinnaker"
+    "curator/pkg/config"
+    //"curator/pkg/vault"
+    //"curator/pkg/spinnaker"
 )
 
 type Conf struct {
@@ -41,7 +42,7 @@ func main() {
     for _, app := range c.Apps {
       f.Printf("Name: %s\n", app["name"])
       f.Printf("Repo: %s\n", app["repo"])
-      vault.Endpoint(app["name"], app["repo"])
-      spinnaker.Pipeline(app["name"], app["repo"])
+      //vault.Endpoint(app["name"], app["repo"])
+      //spinnaker.Pipeline(app["name"], app["repo"])
     }
 }
