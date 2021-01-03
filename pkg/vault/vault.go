@@ -24,7 +24,7 @@ func check(msg string, e error) {
  }
 }
 
-func vaultApi(url, app string) int {
+func VaultApi(url, app string) int {
   request, err := http.NewRequest("GET", url + "v1/secret/data/test/" + app + "/env", nil)
   check("Listing vault urls", err)
   request.Header.Set("X-Vault-Token", VltPass)
@@ -57,17 +57,17 @@ func createVaultEpt(url string, data []byte) []byte {
   return body
 }
 
-func endPointExists(app string) bool {
-  rcode := vaultApi(vltUrl, app)
+func EndpointExists(app string) bool {
+  rcode := VaultApi(vltUrl, app)
   exists := false
-  if rcode >= 200 && rcode <= 299 {
+  if rcode == 200 {
     exists = true
   }
   return exists
 }
 
 func Endpoint(app, repo string) {
-  if !endPointExists(app) {
+  if !EndpointExists(app) {
     jData, _ := json.Marshal(map[string]map[string]string{
       "data": {"env":"test"},
     })

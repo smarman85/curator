@@ -1,7 +1,6 @@
 package config
 
 import (
-  //f "fmt"
   "gopkg.in/yaml.v2"
   "io/ioutil"
 )
@@ -34,9 +33,6 @@ func GetConfig(fileName string) ([]byte, error) {
   yamlFile, err := ioutil.ReadFile(fileName)
   if err != nil {
     return nil, MissingFile
-    //return "", "missing file"
   }
-  //f.Printf("%T\n", yamlFile)
-  //f.Println(string(yamlFile))
   return yamlFile, nil
 }
