@@ -2,6 +2,7 @@ package config
 
 import (
   "testing"
+  //"reflect"
 )
 
 func assertString(t *testing.T, got, want string) {
@@ -26,4 +27,22 @@ func TestGetConfig(t *testing.T) {
     assertError(t, got, MissingFile)
   })
 
+}
+
+func TestDecodeConfig(t *testing.T) {
+
+  //yamlData := []byte(`{"rails_apps":[{"name":"sampleapp","repo":"sample-app"}]}`)
+
+
+  t.Run("test returns content", func(t *testing.T) {
+    data, _ := GetConfig("test.yaml")
+    got, _ := DecodeConfig(data)
+    app := got.Apps[0]["name"]
+    want := "sampleapp"
+
+    if app != want {
+      t.Errorf("got %q want %q", got, want)
+    }
+
+  })
 }
